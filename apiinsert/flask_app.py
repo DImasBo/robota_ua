@@ -1,30 +1,26 @@
+import time
+
 from flask import Flask, abort, jsonify
-import socket
-from confluent_kafka import Producer
-
-conf = {'bootstrap.servers': "localhost:9092", 'client.id': socket.gethostname()}
-
-producer = Producer(conf)
+import re
+from utils import get_producer, sent_to_kafka
 
 app = Flask(__name__)
+
+TOPIC = "robota_ua"
+REGULAR_VALID_TEXT = '^[a-zA-Z]{1,20}$'
+
+producer = get_producer()
 
 
 @app.route("/insert/<text>")
 def insert_text(text):
-    if text == 'exc':
-        abort(404)
-    return jsonify({'text': text})
+    if not re.match(REGULAR_VALID_TEXT, text):
+        abort(400, 'text is not valid')
 
-
-def acked(err, msg):
-    if err is not None:
-        print("Failed to deliver message: %s: %s" % (str(msg), str(err)))
-    else:
-        print("Message produced: %s" % (str(msg)))
-
-
-producer.produce('topic', key="key", value="value", callback=acked)
-
-# Wait up to 1 second for events. Callbacks will be invoked during
-# this method call if the message is acknowledged.
-producer.poll(1)
+    time_now = int(time.time())
+    message = sent_to_kafka(TOPIC, text, time_now, producer)
+    return jsonify({
+        "status": "success",
+        "code": 200,
+        "message": message
+    })
