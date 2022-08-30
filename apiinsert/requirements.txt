@@ -1,2 +1,2 @@
-flask
-kafka-python
+flask==2.2.2
+kafka-python==2.0.2

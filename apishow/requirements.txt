@@ -1,2 +1,2 @@
-flask
+flask==2.2.2
 elasticsearch==7.10.1
