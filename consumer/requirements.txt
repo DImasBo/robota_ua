@@ -1,1 +1,2 @@
-flask
+kafka-python
+elasticsearch==7.10.1
