@@ -1,14 +1,19 @@
-from flask import Flask, abort, jsonify
-
+from elasticsearch import Elasticsearch
+from flask import Flask, jsonify
+from utils import get_messages
 
 app = Flask(__name__)
+
+TOPIC = "robota_ua"
+
+elastic_client = Elasticsearch('http://elasticsearch:9200')
 
 
 @app.route("/show")
 def show():
-	return jsonify(
-		{"data": [
-			{"timestamp": "2022-08-19 12: 59:35", "message": "text1"},
-			{"timestamp": "2022-08-19 13: 51:35", "message": "text2"}
-		]}
-	)
+	messages = get_messages(TOPIC, elastic_client)
+	return jsonify({
+		"status": "success",
+		"code": 200,
+		"data": messages
+	})
