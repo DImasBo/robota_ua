@@ -1,9 +1,17 @@
+from elasticsearch import Elasticsearch
 from kafka import KafkaConsumer
+from datetime import datetime
 import json
 
 
-def send_message_to_elasticsearch(message: dict):
-    pass
+def send_message_to_elasticsearch(message: dict, elastic_client: Elasticsearch):
+    doc = {
+        'text': message.get('text'),
+        'timestamp': datetime.fromtimestamp(
+            message.get('timestamp')),
+    }
+    response = elastic_client.index(index="test-index", id=1, body=doc)
+    return response
 
 
 def get_consumer(*topics: str):

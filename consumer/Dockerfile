@@ -12,4 +12,4 @@ ENV FLASK_APP=flask_app.py
 ENV PYTHONPATH=/app
 
 EXPOSE 5000
-CMD ["flask", "run"]
+CMD ["python", "main.py"]
