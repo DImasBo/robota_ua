@@ -1,11 +1,8 @@
 # robota ua project
 
 # Getting Started
-
-```
-docker-compose up --build
-
-```
+1) need to run kafka, zookeeper and elasticsearch. `docker-compose up --build kafka zookeeper elasticsearch -d`
+2) when the services will work then we can run other service apiinser, apishow, consumer `docker-compose up --build apiinsert apishow consumer -d`
 
 # Preview A general workflow 
 Services:
