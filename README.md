@@ -7,7 +7,7 @@ git clone https://github.com/DImasBo/robota_ua
 cd robota_ua
 ```
 3) need to run kafka, zookeeper and elasticsearch. `docker-compose up --build kafka zookeeper elasticsearch -d`
-4) when the services will work then need to run other service: apiinser, apishow, consumer `docker-compose up --build apiinsert apishow consumer -d`
+4) when the services will work then need to run other service: apiinser, consumer, apishow. `docker-compose up --build apiinsert apishow consumer -d`
 
 # Preview A general workflow 
 Services:
