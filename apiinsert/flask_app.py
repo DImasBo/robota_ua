@@ -7,7 +7,7 @@ from utils import get_producer, sent_to_kafka
 app = Flask(__name__)
 
 TOPIC = "robota_ua"
-REGULAR_VALID_TEXT = '^[a-zA-Z]{1,20}$'
+REGULAR_VALID_TEXT = '^[a-z,0-9]{1,20}$'
 
 producer = get_producer()
 
